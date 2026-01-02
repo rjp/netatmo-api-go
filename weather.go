@@ -82,16 +82,27 @@ type DeviceCollection struct {
 
 // Device represents a station or module.
 type Device struct {
-	ID             string `json:"_id"`
-	StationName    string `json:"station_name"`
-	ModuleName     string `json:"module_name"`
-	BatteryPercent *int32 `json:"battery_percent,omitempty"`
-	WifiStatus     *int32 `json:"wifi_status,omitempty"`
-	RFStatus       *int32 `json:"rf_status,omitempty"`
-	Type           string
+	ID             string        `json:"_id"`
+	StationName    string        `json:"station_name"`
+	ModuleName     string        `json:"module_name"`
+	BatteryPercent *int32        `json:"battery_percent,omitempty"`
+	WifiStatus     *int32        `json:"wifi_status,omitempty"`
+	RFStatus       *int32        `json:"rf_status,omitempty"`
+	Type           string        `json:"type,omitempty"`
 	DashboardData  DashboardData `json:"dashboard_data"`
 	Place          Place         `json:"place"`
 	LinkedModules  []*Device     `json:"modules"`
+	//
+	Firmware        *int32 `json:"firmware,omitempty"`
+	CO2Calibrating  *bool  `json:"co2_calibrating,omitempty"`
+	Reachable       *bool  `json:"reachable,omitempty"`
+	LastStatusStore *int64 `json:"last_status_store,omitempty"`
+	DateSetup       *int64 `json:"date_setup,omitempty"`
+	LastSetup       *int64 `json:"last_setup,omitempty"`
+	HomeID          string `json:"home_id,omitempty"`
+	HomeName        string `json:"home_name,omitempty"`
+	LastMessage     *int64 `json:"last_message,omitempty"`
+	BatteryVP       *int32 `json:"battery_vp,omitempty"`
 }
 
 // DashboardData holds sensor measurements.
@@ -113,7 +124,10 @@ type DashboardData struct {
 	WindStrength     *int32   `json:"WindStrength,omitempty"`
 	GustAngle        *int32   `json:"GustAngle,omitempty"`
 	GustStrength     *int32   `json:"GustStrength,omitempty"`
-	LastMeasure      *int64   `json:"time_utc"`
+	LastMeasure      *int64   `json:"time_utc,omitempty"`
+	//
+	DateMaxTemp *int64 `json:"date_max_temp,omitempty"`
+	DateMinTemp *int64 `json:"date_min_temp,omitempty"`
 }
 
 // Place holds geolocation and location details.
