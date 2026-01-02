@@ -1,4 +1,6 @@
 github.com/BurntSushi/toml v1.5.0 h1:W5quZX/G/csjUnuI8SUYlsHs9M38FC7znL0lIO+DvMg=
 github.com/BurntSushi/toml v1.5.0/go.mod h1:ukJfTF/6rtPPRCnwkur4qwRxa8vTRFBF0uk2lLoLwho=
+github.com/joshuabeny1999/netatmo-api-go/v2 v2.0.0-20250507080719-3dd9f9d51b17 h1:iUq4518G+jwuNbnDZXT5gvMyQJmt75CmCWCR+uzog2c=
+github.com/joshuabeny1999/netatmo-api-go/v2 v2.0.0-20250507080719-3dd9f9d51b17/go.mod h1:kBSvlVfvrrmYBiwQq9WU35FDzfZyLXYnw7filkua6io=
 golang.org/x/oauth2 v0.30.0 h1:dnDm7JmhM45NNpd8FDDeLhK6FwqbOf4MLCM9zb1BOHI=
 golang.org/x/oauth2 v0.30.0/go.mod h1:B++QgG3ZKulg6sRPGD/mqlHQs5rB3Ml9erfeDY7xKlU=
