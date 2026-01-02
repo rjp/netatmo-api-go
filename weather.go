@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -213,26 +214,38 @@ func (c *Client) doHTTP(req *http.Request) (*http.Response, error) {
 }
 
 // processHTTPResponse checks status and unmarshals JSON.
-func processHTTPResponse(resp *http.Response, err error, holder interface{}) error {
+func processHTTPResponse(resp *http.Response, err error, holder interface{}) (json.RawMessage, error) {
 	if resp != nil {
 		defer resp.Body.Close()
 	}
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("bad HTTP status: %d", resp.StatusCode)
+		return nil, fmt.Errorf("bad HTTP status: %d", resp.StatusCode)
 	}
-	return json.NewDecoder(resp.Body).Decode(holder)
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(data, holder)
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }
 
 // Read retrieves station/module data.
-func (c *Client) Read() (*DeviceCollection, error) {
+func (c *Client) Read() (*DeviceCollection, json.RawMessage, error) {
 	resp, err := c.doHTTPGet(deviceURL, url.Values{"app_type": {"app_station"}})
-	if err = processHTTPResponse(resp, err, c.Dc); err != nil {
-		return nil, err
+	j, err := processHTTPResponse(resp, err, c.Dc)
+	if err != nil {
+		return nil, nil, err
 	}
-	return c.Dc, nil
+	return c.Dc, j, nil
 }
 
 // Devices returns the list of devices
